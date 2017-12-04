@@ -1,42 +1,52 @@
 <main class="container">
-        <div class="row">
-            <div class="col-xs-6 col-sm-4 col-sm-offset-1">
-                <div class="list-contacts">
-                    <div ng-repeat="contact in contacts track by contact.id">
-                        <div class="thumbnail">
-                            <img heigth="100" width="100" ng-src="{{contact.photo}}" alt="profileImage" onerror="img/default.png" />
-                            <div class="caption">
-                                <h3>{{contact.name}}</h3>
-                                <b>Teléfono:</b><span> {{contact.phone}}</span>
-                                <p class="text-right">
-                                    <a href="#!/contact/{{contact.id}}" class="btn btn-info">Ver</a>
-                                    <button class="btn btn-warning" ng-click="modifyContact(contact)">Editar</button>
-                                    <button class="btn btn-danger" ng-click="removeContact()">Eliminar</button>
-                                </p>
-                            </div>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="list-contacts">
+                <div ng-repeat="contact in contacts track by contact.id">
+                    <div class="thumbnail">
+                        <img heigth="100" width="100" ng-src="{{contact.photo}}" alt="profileImage" onerror="img/default.png" />
+                        <div class="caption">
+                            <h3>{{contact.name}}</h3>
+                            <b>Teléfono:</b><span> {{contact.phone}}</span>
+                            <p class="text-right">
+                                <a href="#!/contact/{{contact.id}}" class="btn btn-info">Ver</a>
+                                <button class="btn btn-warning" ng-click="modifyContact(contact)">Editar</button>
+                                <button class="btn btn-danger" ng-click="removeContact()">Eliminar</button>
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xs-6 col-sm-5 col-sm-offset-2 contact-form">
-                <form name="editForm">
+        </div>
+        <div class="col-lg-6 col-lg-offset-2 contact-menu">
+            <div class="row">
+                <div class="col-lg-3">
+                    <button ng-click="changeMode(0)" class="btn btn-default">Formulario</button>
+                </div>
+                <div class="col-lg-3">
+                    <button ng-click="changeMode(1)" class="btn btn-default" ng-disabled="!contact.id">Gifs</button>
+                </div>
+                <div class="col-lg-3">
+                    <button ng-click="changeMode(2)" class="btn btn-default">Otros</button>
+                </div>
+            </div>
+            <div class="content" ng-show="mode == 0">
+                <form name="editForm" class="contact-form">
                     <div class="form-group">
                         <label>Nombre *</label>
                         <input ng-model="contact.name" name="name" type="text" class="form-control" placeholder="Nombre ..." />
                     </div>
                     <div class="form-group">
                         <label>URL Foto *</label>
-                        <input ng-model="contact.photo" name="photo" type="text" class="form-control" placeholder="URL Foto ..."/>
+                        <input ng-model="contact.photo" name="photo" type="text" class="form-control" placeholder="URL Foto ..." />
                     </div>
                     <div class="form-group">
                         <label>Correo *</label>
-                        <input ng-model="contact.email" name="email" type="email" class="form-control" placeholder="Correo ..."
-                        />
+                        <input ng-model="contact.email" name="email" type="email" class="form-control" placeholder="Correo ..." />
                     </div>
                     <div class="form-group">
                         <label>Telefono *</label>
-                        <input ng-model="contact.phone" name="phone" type="text" class="form-control"
-                            placeholder="Telefono ..." />
+                        <input ng-model="contact.phone" name="phone" type="text" class="form-control" placeholder="Telefono ..." />
                     </div>
                     <div class="buttons">
                         <button class="btn btn-success" ng-click="addContact()" ng-show="modify == 0">Guardar</button>
@@ -44,5 +54,43 @@
                     </div>
                 </form>
             </div>
+            
+             <div class="content" ng-show="mode == 1">
+                <form name="editForm" class="contact-form">
+                    <p><strong>{{contact.name}}</strong></p>
+                    
+                    <div class="row">
+                        <div ng-repeat="gif in gifsPreFav">
+                           <div class="col-lg-3">
+                               <div class="row gif-container">
+                                   <button class="btn btn-default" ng-click="removeFavGif(gif.id)"><img heigth="100" width="100" ng-src="{{gif.images.preview_gif.url}}" alt="gif"></button>
+                               </div>
+                           </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <input type="text" class="form-control" placeholder="Buscar..." ng-model="search">
+                    <button class="btn btn-success" ng-click="searchGif(search)">Buscar</button>
+                    
+                    <div class="row">
+                        <div ng-repeat="gif in gifs">
+                           <div class="col-lg-3">
+                               <div class="row gif-container">
+                                   <button class="btn btn-default" ng-click="setFavGif(gif)"><img heigth="100" width="100" ng-src="{{gif.images.preview_gif.url}}" alt="gif"></button>
+                               </div>
+                           </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-success" ng-click="saveGifs()">Crear</button>
+                </form>
+            </div>
+            
+            <div class="content" ng-show="mode == 2">
+                <form name="editForm" class="contact-form">
+                    <h2>Otros</h2>
+                </form>
+            </div>
         </div>
-    </main>
+    </div>
+</main>

@@ -1,3 +1,8 @@
-.contact-form, .list-contacts, .contact-info, .link {
+.contact-form, .list-contacts, .contact-info, .link, .contact-menu {
     padding-top: 30px;
+}
+
+.gif-container {
+    width: 300px;
+    height: 200px;
 }

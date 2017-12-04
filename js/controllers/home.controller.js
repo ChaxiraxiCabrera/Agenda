@@ -5,19 +5,28 @@
         .module('Agenda')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', 'ContactLSFactory'];
+    HomeController.$inject = ['$scope', 'ContactLSFactory', 'GifsFactory'];
 
     /* @ngInject */
-    function HomeController($scope, ContactLSFactory){
+    function HomeController($scope, ContactLSFactory, GifsFactory){
         
         $scope.contacts = [];
         $scope.contact = {};
         $scope.modify = 0;
+        $scope.mode = 0;
+        $scope.gifs = [];
+        $scope.gifsPreFav = [];
+        
         
         $scope.addContact = addContact;
         $scope.modifyContact = modifyContact;
         $scope.updateContact = updateContact;
         $scope.removeContact = removeContact;
+        $scope.changeMode = changeMode;
+        $scope.searchGif = searchGif;
+        $scope.setFavGif = setFavGif;
+        $scope.removeFavGif = removeFavGif;
+        $scope.saveGifs = saveGifs;
 
         activate();
 
@@ -25,6 +34,7 @@
 
         function activate() {
             $scope.contacts = ContactLSFactory.getAll();
+            
         }
         
         function addContact(){
@@ -58,6 +68,45 @@
                     ContactLSFactory.removeContact($scope.contacts[i].id);
                 }
             }
+        }
+        
+        function changeMode(mode){
+            $scope.mode = mode;
+            if (mode == 1)
+                $scope.gifsPreFav = ContactLSFactory.getGifs($scope.contact.id);
+        }
+        
+        function searchGif(search){
+            GifsFactory.get(search).then(displayGifs);
+        }
+        
+        function displayGifs(gifs){
+            $scope.gifs = gifs;
+            console.log($scope.gifs);
+        }
+        
+        function setFavGif(gif){
+            let isIn = false;
+            for (let i = 0; i < $scope.gifsPreFav.length; i++){
+                if (gif.id == $scope.gifsPreFav[i].id){
+                   isIn = true;
+                }
+            }
+            
+            if(!isIn)
+                 $scope.gifsPreFav.push(gif);
+        }
+        
+        function removeFavGif(id){
+            for (let i = 0; i < $scope.gifsPreFav.length; i++){
+                if (id == $scope.gifsPreFav[i].id){
+                   $scope.gifsPreFav.splice(i, 1);
+                }
+            }
+        }
+        
+        function saveGifs(){
+            ContactLSFactory.saveGifs($scope.gifsPreFav, $scope.contact.id);
         }
         
         

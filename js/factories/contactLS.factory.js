@@ -13,7 +13,9 @@
             getAll: getAll,
             updateContact: updateContact,
             removeContact: removeContact,
-            getContact: getContact
+            getContact: getContact,
+            saveGifs: saveGifs,
+            getGifs: getGifs
         };
             
 
@@ -61,6 +63,21 @@
                     localStorage.setItem('contacts', JSON.stringify(contacts));
                 }
             }
+        }
+        
+        function saveGifs(gifs, id){
+            var contact = getContact(id);
+            contact.gifs = gifs;
+            updateContact(contact);
+        }
+        
+        function getGifs(id){
+            console.log(id);
+            var contact = getContact(id);
+            console.log(contact);
+            if(contact.hasOwnProperty('gifs'))
+                return contact.gifs;
+            return [];
         }
     }
 })();
