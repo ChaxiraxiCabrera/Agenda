@@ -27,7 +27,7 @@
                     <button ng-click="changeMode(1)" class="btn btn-default" ng-disabled="!contact.id">Gifs</button>
                 </div>
                 <div class="col-lg-3">
-                    <button ng-click="changeMode(2)" class="btn btn-default">Otros</button>
+                    <button ng-click="changeMode(2)" class="btn btn-default" ng-disabled="!contact.id">Otros</button>
                 </div>
             </div>
             <div class="content" ng-show="mode == 0">
@@ -70,10 +70,16 @@
                     </div>
                     
                     
-                    <input type="text" class="form-control" placeholder="Buscar..." ng-model="search">
-                    <button class="btn btn-success" ng-click="searchGif(search)">Buscar</button>
-                    
                     <div class="row">
+                        <div class="col-lg-5">
+                            <input type="text" class="form-control" placeholder="Buscar..." ng-model="search">
+                        </div>
+                        <div class="col-lg-3">
+                            <button class="btn btn-success" ng-click="searchGif(search, 0)">Buscar</button>
+                        </div>
+                    </div>
+                    
+                    <div class="row searched-gifs">
                         <div ng-repeat="gif in gifs">
                            <div class="col-lg-3">
                                <div class="row gif-container">
@@ -82,13 +88,74 @@
                            </div>
                         </div>
                     </div>
-                    <button class="btn btn-success" ng-click="saveGifs()">Crear</button>
+                    
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <button class="btn btn-default" ng-click="searchGif(search, 2)">&lt;</button>
+                        </div>
+                        <div class="col-lg-2 col-lg-offset-8">
+                            <button class="btn btn-default" ng-click="searchGif(search, 1)">&gt;</button>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-lg-3 col-lg-offset-10">
+                            <button class="btn btn-success" ng-click="saveGifs()">Crear</button>
+                        </div>
+                    </div>
                 </form>
             </div>
             
             <div class="content" ng-show="mode == 2">
                 <form name="editForm" class="contact-form">
-                    <h2>Otros</h2>
+                    <form name="editForm" class="contact-form">
+                    <p><strong>{{contact.name}}</strong></p>
+                    
+                    <div class="row">
+                        <div ng-repeat="comic in comicsFav">
+                           <div class="col-lg-3">
+                               <div class="row gif-container">
+                                   <button class="btn btn-default" ng-click="removeFavComic(comic.id)"><img heigth="100" width="100" ng-src="{{comic.cover}}" alt="comic"></button>
+                               </div>
+                           </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <input type="text" class="form-control" placeholder="Buscar..." ng-model="comic">
+                        </div>
+                        <div class="col-lg-3">
+                            <button class="btn btn-success" ng-click="searchComics(comic, 0)">Buscar</button>
+                        </div>
+                    </div>
+                    
+                    <div class="row searched-gifs">
+                        <div ng-repeat="comic in comics">
+                           <div class="col-lg-4">
+                               <div class="row gif-container">
+                                   <button class="btn btn-default" ng-click="setComicFav(comic)"><img heigth="100" width="100" ng-src="{{comic.cover}}" alt="comic"></button>
+                               </div>
+                           </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <button class="btn btn-default" ng-click="searchComics(comic, 2)">&lt;</button>
+                        </div>
+                        <div class="col-lg-2 col-lg-offset-8">
+                            <button class="btn btn-default" ng-click="searchComics(comic, 1)">&gt;</button>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-lg-3 col-lg-offset-10">
+                            <button class="btn btn-success" ng-click="saveComics()">Crear</button>
+                        </div>
+                    </div>
+                </form>
                 </form>
             </div>
         </div>

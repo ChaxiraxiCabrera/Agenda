@@ -24,6 +24,15 @@
         </div>
         <div class="col-lg-4">
             <h2>Comics Favoritos</h2>
+            <div class="row">
+                <div ng-repeat="comic in comics">
+                    <div class="col-lg-3">
+                        <div class="row gif-container">
+                            <img heigth="100" width="100" ng-src="{{comic.cover}}" alt="comic">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </main>
