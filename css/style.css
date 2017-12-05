@@ -1,5 +1,9 @@
-.contact-form, .list-contacts, .contact-info, .link, .contact-menu {
+.contact-form, .contact-info, .link, .contact-menu {
     padding-top: 30px;
+}
+
+.contacts-container {
+    padding-top: 60px;
 }
 
 .gif-container {
@@ -11,7 +15,6 @@
     padding-top: 30px;
     padding-bottom: 5px;
 }
-
 
 .contact-form .ng-invalid.ng-touched{
   border-color: red;
@@ -25,3 +28,12 @@
   margin-left: 5px;
 }
 
+.list-contacts{
+  max-height: 450px;
+  overflow: scroll;
+}
+
+.selected {
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+}

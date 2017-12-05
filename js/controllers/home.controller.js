@@ -34,6 +34,8 @@
         $scope.removeFavComic = removeFavComic;
         $scope.checkContact= checkContact;
         $scope.changeFilter = changeFilter;
+        $scope.checkFav = checkFav;
+        $scope.checkFavComic = checkFavComic;
 
         activate();
 
@@ -105,6 +107,8 @@
             if(!isIn){
                 $scope.gifsPreFav.push(gif);
                 $scope.contact.gifs = $scope.gifsPreFav;
+            }else{
+                removeFavGif(gif.id);
             }
                  
         }
@@ -140,6 +144,8 @@
             if (!isIn){
                 $scope.comicsFav.push(comic);
                 $scope.contact.comics = $scope.comicsFav;
+            }else {
+                removeFavComic(comic.id);
             }
                 
         }
@@ -174,6 +180,25 @@
             $scope.comic = '';
             $scope.contactForm.$setUntouched();
             $scope.contactForm.$setPristine();
+        }
+        
+        
+        function checkFav(id){
+            for ( let i = 0; i < $scope.gifsPreFav.length; i++){
+                if ($scope.gifsPreFav[i].id == id){
+                    return true;
+                }
+            }
+            return false;
+        }
+        
+        function checkFavComic(id){
+            for ( let i = 0; i < $scope.comicsFav.length; i++){
+                if ($scope.comicsFav[i].id == id){
+                    return true;
+                }
+            }
+            return false;
         }
         
     }

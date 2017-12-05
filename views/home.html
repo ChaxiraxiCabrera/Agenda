@@ -1,6 +1,6 @@
 <main class="container">
     <div class="row">
-        <div class="col-lg-4">
+        <div class="contacts-container col-lg-4">
             <div class="list-contacts">
                 <div ng-repeat="contact in contacts track by contact.id">
                     <div class="thumbnail">
@@ -19,15 +19,11 @@
             </div>
         </div>
         <div class="col-lg-6 col-lg-offset-2 contact-menu">
-            <div class="row">
-                <div class="col-lg-3">
-                    <button ng-click="changeMode(0)" class="btn btn-default">Formulario</button>
-                </div>
-                <div class="col-lg-3">
-                    <button ng-click="changeMode(1)" class="btn btn-default">Gifs</button>
-                </div>
-                <div class="col-lg-3">
-                    <button ng-click="changeMode(2)" class="btn btn-default">Otros</button>
+            <div class="form-menu">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default" ng-click="changeMode(0)" ng-class="{active : mode == 0}">Formulario</button>
+                    <button type="button" class="btn btn-default" ng-click="changeMode(1)" ng-class="{active : mode == 1}">Gifs</button>
+                    <button type="button" class="btn btn-default" ng-click="changeMode(2)" ng-class="{active : mode == 2}">Otros</button>
                 </div>
             </div>
             <div class="content" ng-show="mode == 0">
@@ -80,20 +76,18 @@
                         <div class="col-lg-5">
                             <input type="text" class="form-control" placeholder="Buscar..." ng-model="search">
                         </div>
-                        <div class="col-lg-3">
-                            <button class="btn btn-link" ng-click="changeFilter(1)">Trending</button>
-                            <button class="btn btn-link" ng-click="changeFilter(0)">Recents</button>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default" ng-click="changeFilter(1)" ng-class="{active : filterMode  == 'trending_datetime'}">Trending</button>
+                            <button type="button" class="btn btn-default" ng-click="changeFilter(0)" ng-class="{active : filterMode  == 'rating'}">Recents</button>
                         </div>
-                        <div class="col-lg-3">
-                            <button class="btn btn-success" ng-click="searchGif(search, 0)">Buscar</button>
-                        </div>
+                        <button class="btn btn-success" ng-click="searchGif(search, 0)">Buscar</button>
                     </div>
 
                     <div class="row searched-gifs">
                         <div ng-repeat="gif in gifs | orderBy: filterMode">
                             <div class="col-lg-3">
                                 <div class="row gif-container">
-                                    <button class="btn btn-default" ng-click="setFavGif(gif)"><img heigth="100" width="100" ng-src="{{gif.images.preview_gif.url}}" alt="gif"></button>
+                                        <button class="btn btn-link" ng-click="setFavGif(gif)"><img heigth="100" width="100" ng-src="{{gif.images.preview_gif.url}}" alt="gif" ng-class="{selected : checkFav(gif.id) == true}"></button>
                                 </div>
                             </div>
                         </div>
@@ -142,7 +136,7 @@
                         <div ng-repeat="comic in comics">
                             <div class="col-lg-4">
                                 <div class="row gif-container">
-                                    <button class="btn btn-default" ng-click="setComicFav(comic)"><img heigth="100" width="100" ng-src="{{comic.cover}}" alt="comic"></button>
+                                    <button class="btn btn-link" ng-click="setComicFav(comic)"><img heigth="100" width="100" ng-src="{{comic.cover}}" alt="comic" ng-class="{selected : checkFavComic(comic.id) == true}"></button>
                                 </div>
                             </div>
                         </div>
