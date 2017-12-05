@@ -18,6 +18,7 @@
         $scope.gifsPreFav = [];
         $scope.comics = [];
         $scope.comicsFav = [];
+        $scope.filterMode = '';
         
         
         $scope.addContact = addContact;
@@ -32,6 +33,7 @@
         $scope.setComicFav = setComicFav;
         $scope.removeFavComic = removeFavComic;
         $scope.checkContact= checkContact;
+        $scope.changeFilter = changeFilter;
 
         activate();
 
@@ -158,6 +160,14 @@
                 return true;
             }
             return false;
+        }
+        
+        function changeFilter (mode){
+            if ( mode == 0){
+                $scope.filterMode = 'rating';
+            } else if ( mode == 1){
+                $scope.filterMode = 'trending_datetime';
+            }
         }
         
     }

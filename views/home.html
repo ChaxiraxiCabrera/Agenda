@@ -75,12 +75,16 @@
                             <input type="text" class="form-control" placeholder="Buscar..." ng-model="search">
                         </div>
                         <div class="col-lg-3">
+                            <button class="btn btn-link" ng-click="changeFilter(1)">Trending</button>
+                            <button class="btn btn-link" ng-click="changeFilter(0)">Recents</button>
+                        </div>
+                        <div class="col-lg-3">
                             <button class="btn btn-success" ng-click="searchGif(search, 0)">Buscar</button>
                         </div>
                     </div>
 
                     <div class="row searched-gifs">
-                        <div ng-repeat="gif in gifs">
+                        <div ng-repeat="gif in gifs | orderBy: filterMode">
                             <div class="col-lg-3">
                                 <div class="row gif-container">
                                     <button class="btn btn-default" ng-click="setFavGif(gif)"><img heigth="100" width="100" ng-src="{{gif.images.preview_gif.url}}" alt="gif"></button>
