@@ -12,3 +12,16 @@
     padding-bottom: 5px;
 }
 
+
+.contact-form .ng-invalid.ng-touched{
+  border-color: red;
+}
+.contact-form .ng-valid.ng-touched{
+  border-color: green;
+}
+.contact-form p{
+  color: red;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+

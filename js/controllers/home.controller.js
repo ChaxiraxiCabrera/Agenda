@@ -47,7 +47,7 @@
             $scope.contact.id = randId();
             $scope.contacts.push($scope.contact);
             ContactLSFactory.saveContact($scope.contact);
-            $scope.contact = {};
+            cleanForm();
         }
         
         function modifyContact(contact){
@@ -62,7 +62,7 @@
                     ContactLSFactory.updateContact($scope.contact);
                 }
             }
-            $scope.contact = {};
+            cleanForm();
             $scope.modify = 0;
         }
         
@@ -154,11 +154,8 @@
         }
         
         function checkContact(){
-            if ($scope.contact.name && $scope.contact.photo  
-                && $scope.contact.phone && $scope.contact.email 
-                && $scope.contact.gifs && $scope.contact.comics){
+            if ($scope.contactForm.$valid && $scope.contact.gifs && $scope.contact.comics)
                 return true;
-            }
             return false;
         }
         
@@ -168,6 +165,15 @@
             } else if ( mode == 1){
                 $scope.filterMode = 'trending_datetime';
             }
+        }
+        
+        
+        function cleanForm() {
+            $scope.contact = {};
+            $scope.search = '';
+            $scope.comic = '';
+            $scope.contactForm.$setUntouched();
+            $scope.contactForm.$setPristine();
         }
         
     }

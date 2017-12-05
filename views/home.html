@@ -31,22 +31,28 @@
                 </div>
             </div>
             <div class="content" ng-show="mode == 0">
-                <form name="editForm" class="contact-form">
+                <form name="contactForm" class="contact-form" novalidate>
                     <div class="form-group">
                         <label>Nombre *</label>
-                        <input ng-model="contact.name" name="name" type="text" class="form-control" placeholder="Nombre ..." />
+                        <input ng-model="contact.name" name="name" type="text" class="form-control" placeholder="Nombre ..." ng-required="true" />
+                        <p ng-show="contactForm.name.$touched && !contactForm.name.$valid">
+                            No te olvides de introducir un nombre.
+                        </p>
                     </div>
                     <div class="form-group">
                         <label>URL Foto *</label>
-                        <input ng-model="contact.photo" name="photo" type="text" class="form-control" placeholder="URL Foto ..." />
+                        <input ng-model="contact.photo" name="photo" type="text" class="form-control" placeholder="URL Foto ..." ng-required="true" />
+                        <p ng-show="contactForm.photo.$touched && contactForm.photo.$invalid">No te olvides de indicar una foto</p>
                     </div>
                     <div class="form-group">
                         <label>Correo *</label>
-                        <input ng-model="contact.email" name="email" type="email" class="form-control" placeholder="Correo ..." />
+                        <input ng-model="contact.email" name="email" type="email" class="form-control" placeholder="Correo ..." ng-required="true" />
+                        <p ng-show="contactForm.email.$touched && contactForm.email.$invalid">Introduzca un email válido</p>
                     </div>
                     <div class="form-group">
                         <label>Telefono *</label>
-                        <input ng-model="contact.phone" name="phone" type="text" class="form-control" placeholder="Telefono ..." />
+                        <input ng-model="contact.phone" name="phone" type="text" class="form-control" placeholder="Telefono ..." ng-required="true" ng-min="9" ng-pattern="/^[9|6|7][0-9]{8}$/" />
+                        <p ng-show="contactForm.phone.$touched && contactForm.phone.$invalid">Introduzca un teléfono válido</p>
                     </div>
                     <div class="buttons">
                         <button class="btn btn-success" ng-click="addContact()" ng-show="modify == 0" ng-disabled="!checkContact()">Guardar</button>
@@ -56,7 +62,7 @@
             </div>
 
             <div class="content" ng-show="mode == 1">
-                <form name="editForm" class="contact-form">
+                <form name="gifForm" class="contact-form">
                     <p><strong>{{contact.name}}</strong></p>
 
                     <div class="row">
@@ -112,54 +118,53 @@
             </div>
 
             <div class="content" ng-show="mode == 2">
-                <form name="editForm" class="contact-form">
-                    <form name="editForm" class="contact-form">
-                        <p><strong>{{contact.name}}</strong></p>
+                <form name="comicForm" class="contact-form">
+                    <p><strong>{{contact.name}}</strong></p>
 
-                        <div class="row">
-                            <div ng-repeat="comic in comicsFav">
-                                <div class="col-lg-3">
-                                    <div class="row gif-container">
-                                        <button class="btn btn-default" ng-click="removeFavComic(comic.id)"><img heigth="100" width="100" ng-src="{{comic.cover}}" alt="comic"></button>
-                                    </div>
+                    <div class="row">
+                        <div ng-repeat="comic in comicsFav">
+                            <div class="col-lg-3">
+                                <div class="row gif-container">
+                                    <button class="btn btn-default" ng-click="removeFavComic(comic.id)"><img heigth="100" width="100" ng-src="{{comic.cover}}" alt="comic"></button>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
 
-                        <div class="row">
-                            <div class="col-lg-5">
-                                <input type="text" class="form-control" placeholder="Buscar..." ng-model="comic" ng-change="searchComics(comic, 0)">
-                            </div>
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <input type="text" class="form-control" placeholder="Buscar..." ng-model="comic" ng-change="searchComics(comic, 0)">
                         </div>
+                    </div>
 
-                        <div class="row searched-gifs">
-                            <div ng-repeat="comic in comics">
-                                <div class="col-lg-4">
-                                    <div class="row gif-container">
-                                        <button class="btn btn-default" ng-click="setComicFav(comic)"><img heigth="100" width="100" ng-src="{{comic.cover}}" alt="comic"></button>
-                                    </div>
+                    <div class="row searched-gifs">
+                        <div ng-repeat="comic in comics">
+                            <div class="col-lg-4">
+                                <div class="row gif-container">
+                                    <button class="btn btn-default" ng-click="setComicFav(comic)"><img heigth="100" width="100" ng-src="{{comic.cover}}" alt="comic"></button>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="col-lg-2">
-                                <button class="btn btn-default" ng-click="searchComics(comic, 2)">&lt;</button>
-                            </div>
-                            <div class="col-lg-2 col-lg-offset-8">
-                                <button class="btn btn-default" ng-click="searchComics(comic, 1)">&gt;</button>
-                            </div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <button class="btn btn-default" ng-click="searchComics(comic, 2)">&lt;</button>
                         </div>
+                        <div class="col-lg-2 col-lg-offset-8">
+                            <button class="btn btn-default" ng-click="searchComics(comic, 1)">&gt;</button>
+                        </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="col-lg-3 col-lg-offset-10">
-                                <button class="btn btn-success" ng-click="addContact()" ng-show="modify == 0" ng-disabled="!checkContact()">Guardar</button>
+                    <div class="row">
+                        <div class="col-lg-3 col-lg-offset-10">
+                            <button class="btn btn-success" ng-click="addContact()" ng-show="modify == 0" ng-disabled="!checkContact()">Guardar</button>
                             <button class="btn btn-success" ng-click="updateContact()" ng-hide="modify == 0">Editar</button>
-                            </div>
                         </div>
-                    </form>
+                    </div>
                 </form>
+
             </div>
         </div>
     </div>
