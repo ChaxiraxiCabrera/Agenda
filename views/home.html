@@ -124,10 +124,7 @@
                     
                     <div class="row">
                         <div class="col-lg-5">
-                            <input type="text" class="form-control" placeholder="Buscar..." ng-model="comic">
-                        </div>
-                        <div class="col-lg-3">
-                            <button class="btn btn-success" ng-click="searchComics(comic, 0)">Buscar</button>
+                            <input type="text" class="form-control" placeholder="Buscar..." ng-model="comic" ng-change="searchComics(comic, 0)">
                         </div>
                     </div>
                     
