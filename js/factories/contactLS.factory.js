@@ -15,7 +15,8 @@
             removeContact: removeContact,
             getContact: getContact,
             saveGifs: saveGifs,
-            getGifs: getGifs
+            getGifs: getGifs,
+            removeGif: removeGif
         };
             
 
@@ -72,12 +73,20 @@
         }
         
         function getGifs(id){
-            console.log(id);
             var contact = getContact(id);
-            console.log(contact);
             if(contact.hasOwnProperty('gifs'))
                 return contact.gifs;
             return [];
+        }
+        
+        function removeGif(idGif, idContact){
+            var gifs = getGifs(idContact);
+            for (let i = 0; i < gifs.length; i++){
+                if (gifs[i].id == idGif){
+                     gifs.splice(i, 1);
+                     saveGifs(gifs, idContact);
+                }
+            }
         }
     }
 })();

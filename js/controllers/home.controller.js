@@ -101,6 +101,7 @@
             for (let i = 0; i < $scope.gifsPreFav.length; i++){
                 if (id == $scope.gifsPreFav[i].id){
                    $scope.gifsPreFav.splice(i, 1);
+                    ContactLSFactory.removeGif(id, $scope.contact.id);
                 }
             }
         }
