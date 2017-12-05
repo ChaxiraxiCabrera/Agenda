@@ -32,7 +32,6 @@
             }
 
             var completeUrl = url + search + limit + prevOffset;
-            console.log(completeUrl);
 
             return $http.get(completeUrl)
                 .then(displayData)

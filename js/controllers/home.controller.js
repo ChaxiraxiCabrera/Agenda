@@ -28,11 +28,10 @@
         $scope.searchGif = searchGif;
         $scope.setFavGif = setFavGif;
         $scope.removeFavGif = removeFavGif;
-        $scope.saveGifs = saveGifs;
-        $scope.saveComics = saveComics;
         $scope.searchComics = searchComics;
         $scope.setComicFav = setComicFav;
         $scope.removeFavComic = removeFavComic;
+        $scope.checkContact= checkContact;
 
         activate();
 
@@ -91,7 +90,6 @@
         
         function displayGifs(gifs){
             $scope.gifs = gifs;
-            console.log($scope.gifs);
         }
         
         function setFavGif(gif){
@@ -102,23 +100,21 @@
                 }
             }
             
-            if(!isIn)
-                 $scope.gifsPreFav.push(gif);
+            if(!isIn){
+                $scope.gifsPreFav.push(gif);
+                $scope.contact.gifs = $scope.gifsPreFav;
+            }
+                 
         }
         
         function removeFavGif(id){
             for (let i = 0; i < $scope.gifsPreFav.length; i++){
                 if (id == $scope.gifsPreFav[i].id){
                    $scope.gifsPreFav.splice(i, 1);
-                    ContactLSFactory.removeGif(id, $scope.contact.id);
+                   $scope.contact.gifs = $scope.gifsPreFav;
                 }
             }
         }
-        
-        function saveGifs(){
-            ContactLSFactory.saveGifs($scope.gifsPreFav, $scope.contact.id);
-        }
-        
         
         function randId() {
             return Math.random().toString(36).substr(2, 20);
@@ -130,7 +126,6 @@
         
         function displayComics(comics){
             $scope.comics = comics;
-            console.log($scope.comics);
         }
         
         function setComicFav(comic){
@@ -140,21 +135,29 @@
                     isIn = true;
             }
             
-            if (!isIn)
+            if (!isIn){
                 $scope.comicsFav.push(comic);
-        }
-        
-        function saveComics(){
-            ContactLSFactory.saveComics($scope.comicsFav, $scope.contact.id);
+                $scope.contact.comics = $scope.comicsFav;
+            }
+                
         }
         
         function removeFavComic(id) {
             for (let i = 0; i < $scope.comicsFav.length; i++){
                 if (id == $scope.comicsFav[i].id){
                    $scope.comicsFav.splice(i, 1);
-                    ContactLSFactory.removeComic(id, $scope.contact.id);
+                    $scope.contact.comics = $scope.comicsFav;
                 }
             }
+        }
+        
+        function checkContact(){
+            if ($scope.contact.name && $scope.contact.photo  
+                && $scope.contact.phone && $scope.contact.email 
+                && $scope.contact.gifs && $scope.contact.comics){
+                return true;
+            }
+            return false;
         }
         
     }

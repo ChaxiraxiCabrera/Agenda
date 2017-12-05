@@ -14,12 +14,8 @@
             updateContact: updateContact,
             removeContact: removeContact,
             getContact: getContact,
-            saveGifs: saveGifs,
             getGifs: getGifs,
-            removeGif: removeGif,
-            saveComics: saveComics, 
             getComics: getComics,
-            removeComic: removeComic
         };
             
 
@@ -69,33 +65,11 @@
             }
         }
         
-        function saveGifs(gifs, id){
-            var contact = getContact(id);
-            contact.gifs = gifs;
-            updateContact(contact);
-        }
-        
         function getGifs(id){
             var contact = getContact(id);
             if(contact.hasOwnProperty('gifs'))
                 return contact.gifs;
             return [];
-        }
-        
-        function removeGif(idGif, idContact){
-            var gifs = getGifs(idContact);
-            for (let i = 0; i < gifs.length; i++){
-                if (gifs[i].id == idGif){
-                     gifs.splice(i, 1);
-                     saveGifs(gifs, idContact);
-                }
-            }
-        }
-        
-        function saveComics(comics, id){
-            var contact = getContact(id);
-            contact.comics = comics;
-            updateContact(contact);
         }
         
         function getComics(id){
@@ -105,14 +79,5 @@
             return [];
         }
         
-        function removeComic(idComic, idContact){
-            var comics = getComics(idContact);
-            for (let i = 0; i < comics.length; i++){
-                if (comics[i].id == idComic){
-                     comics.splice(i, 1);
-                     saveComics(comics, idContact);
-                }
-            }
-        }
     }
 })();
