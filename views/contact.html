@@ -14,7 +14,7 @@
             <h2>Gifs Favoritos</h2>
             <div class="row">
                 <div ng-repeat="gif in gifs">
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                         <div class="row gif-container">
                             <img heigth="100" width="100" ng-src="{{gif.images.preview_gif.url}}" alt="gif">
                         </div>
@@ -22,13 +22,13 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-4 col-lg-offset-1">
             <h2>Comics Favoritos</h2>
             <div class="row">
                 <div ng-repeat="comic in comics">
-                    <div class="col-lg-3">
-                        <div class="row gif-container">
-                            <img heigth="100" width="100" ng-src="{{comic.cover}}" alt="comic">
+                    <div class="col-lg-4">
+                        <div class="row comic-container">
+                            <a href="#!/comic/{{comic.id}}"><img heigth="100" width="100" ng-src="{{comic.cover}}" alt="comic"></a>
                         </div>
                     </div>
                 </div>

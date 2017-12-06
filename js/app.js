@@ -20,5 +20,9 @@
                 controller: 'ContactController',
                 templateUrl: 'views/contact.html'
             })
+            .when('/comic/:id', {
+                controller: 'ComicInfoController',
+                templateUrl: 'views/comic.html'
+            })
     }
 })();

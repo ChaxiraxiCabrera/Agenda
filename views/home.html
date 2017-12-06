@@ -19,6 +19,7 @@
             </div>
         </div>
         <div class="col-lg-6 col-lg-offset-2 contact-menu">
+           
             <div class="form-menu">
                 <div class="btn-group">
                     <button type="button" class="btn btn-default" ng-click="changeMode(0)" ng-class="{active : mode == 0}">Formulario</button>
@@ -26,6 +27,7 @@
                     <button type="button" class="btn btn-default" ng-click="changeMode(2)" ng-class="{active : mode == 2}">Otros</button>
                 </div>
             </div>
+            
             <div class="content" ng-show="mode == 0">
                 <form name="contactForm" class="contact-form" novalidate>
                     <div class="form-group">
@@ -50,10 +52,7 @@
                         <input ng-model="contact.phone" name="phone" type="text" class="form-control" placeholder="Telefono ..." ng-required="true" ng-min="9" ng-pattern="/^[9|6|7][0-9]{8}$/" />
                         <p ng-show="contactForm.phone.$touched && contactForm.phone.$invalid">Introduzca un teléfono válido</p>
                     </div>
-                    <div class="buttons">
-                        <button class="btn btn-success" ng-click="addContact()" ng-show="modify == 0" ng-disabled="!checkContact()">Guardar</button>
-                        <button class="btn btn-success" ng-click="updateContact()" ng-hide="modify == 0">Editar</button>
-                    </div>
+
                 </form>
             </div>
 
@@ -87,7 +86,7 @@
                         <div ng-repeat="gif in gifs | orderBy: filterMode">
                             <div class="col-lg-3">
                                 <div class="row gif-container">
-                                        <button class="btn btn-link" ng-click="setFavGif(gif)"><img heigth="100" width="100" ng-src="{{gif.images.preview_gif.url}}" alt="gif" ng-class="{selected : checkFav(gif.id) == true}"></button>
+                                    <button class="btn btn-link" ng-click="setFavGif(gif)"><img heigth="100" width="100" ng-src="{{gif.images.preview_gif.url}}" alt="gif" ng-class="{selected : checkFav(gif.id) == true}"></button>
                                 </div>
                             </div>
                         </div>
@@ -102,12 +101,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-lg-3 col-lg-offset-10">
-                            <button class="btn btn-success" ng-click="addContact()" ng-show="modify == 0" ng-disabled="!checkContact()">Guardar</button>
-                            <button class="btn btn-success" ng-click="updateContact()" ng-hide="modify == 0">Editar</button>
-                        </div>
-                    </div>
+
                 </form>
             </div>
 
@@ -151,14 +145,15 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-lg-3 col-lg-offset-10">
-                            <button class="btn btn-success" ng-click="addContact()" ng-show="modify == 0" ng-disabled="!checkContact()">Guardar</button>
-                            <button class="btn btn-success" ng-click="updateContact()" ng-hide="modify == 0">Editar</button>
-                        </div>
-                    </div>
+
                 </form>
 
+            </div>
+
+
+            <div class="buttons">
+                <button class="btn btn-success" ng-click="addContact()" ng-show="modify == 0" ng-disabled="!checkContact()">Guardar</button>
+                <button class="btn btn-success" ng-click="updateContact()" ng-hide="modify == 0">Editar</button>
             </div>
         </div>
     </div>

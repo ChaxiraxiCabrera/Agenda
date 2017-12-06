@@ -1,0 +1,42 @@
+<main class="container">
+    <div class="row link">
+        <a href="#!/home">Volver</a>
+    </div>
+    <div class="row comic-info">
+        <div class="col-lg-4">
+            <img ng-src="{{comic.coverGrand}}" alt="cover">
+        </div>
+        <div class="col-lg-6">
+            <h2 class="text-center">Info</h2>
+            {{comic.id}}
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Título</th>
+                        <td>{{comic.title}}</td>
+                    </tr>
+                    <tr>
+                        <th>Descripción</th>
+                        <td>{{comic.description}}</td>
+                    </tr>
+                    <tr>
+                        <th>Nº de páginas</th>
+                        <td>{{comic.pageCount}}</td>
+                    </tr>
+                    <tr>
+                        <th>Publicación</th>
+                        <td>{{comic.dates[0].date}}</td>
+                    </tr>
+                    <tr>
+                        <th>Personajes</th>
+                        <td>
+                            <div ng-repeat="character in characters">
+                                <p>{{character.name}}</p>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>

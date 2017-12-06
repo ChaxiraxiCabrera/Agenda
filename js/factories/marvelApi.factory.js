@@ -9,11 +9,15 @@
     /* @ngInject */
     function MarvelFactory($http) {
         var exports = {
-            get: get
+            get: get,
+            getComic: getComic,
+            getCharacters: getCharacters
         };
 
 
-        var url = 'http://gateway.marvel.com/v1/public/comics?ts=1&apikey=2e7e7d8939e644a10fa14629b4561357&hash=48982b0f037aae96a9021c4340a7946f&titleStartsWith=';
+        var baseUrl = 'http://gateway.marvel.com/v1/public/comics';
+        var key = '?ts=1&apikey=2e7e7d8939e644a10fa14629b4561357&hash=48982b0f037aae96a9021c4340a7946f';
+        var contUrl = '&titleStartsWith=';
 
         var limit = '&limit=3&offset=';
 
@@ -31,7 +35,7 @@
                 prevOffset -= 3;
             }
 
-            var completeUrl = url + search + limit + prevOffset;
+            var completeUrl = baseUrl + key + contUrl + search + limit + prevOffset;
 
             return $http.get(completeUrl)
                 .then(displayData)
@@ -41,6 +45,10 @@
         function displayData(response) {
             var comics = generateImages(response.data.data.results);
             return comics;
+        }
+        
+          function displayDataCharacters(response) {
+            return response.data.data.results;
         }
 
         function displayError(e) {
@@ -58,8 +66,25 @@
         function generateImages(comics) {
             for (let i = 0; i < comics.length; i++) {
                 comics[i].cover = comics[i].thumbnail.path + '/portrait_medium.jpg';
+                comics[i].coverGrand = comics[i].thumbnail.path + '/portrait_uncanny.jpg';
             }
             return comics;
+        }
+        
+        function getComic(idComic){
+            var completeUrl = baseUrl + '/' + idComic + key;
+            
+            return $http.get(completeUrl)
+                .then(displayData)
+                .catch(displayError);
+        }
+        
+        function getCharacters(idComic){
+            var completeUrl = baseUrl + '/' + idComic + '/characters' + key;
+            
+            return $http.get(completeUrl)
+                .then(displayDataCharacters)
+                .catch(displayError);
         }
     }
 })();

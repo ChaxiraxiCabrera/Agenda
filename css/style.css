@@ -6,9 +6,8 @@
     padding-top: 60px;
 }
 
-.gif-container {
-    width: 300px;
-    height: 200px;
+.comic-container {
+  padding-bottom: 10px;
 }
 
 .searched-gifs {
@@ -36,4 +35,8 @@
 .selected {
     opacity: 0.4;
     filter: alpha(opacity=40);
+}
+
+.buttons {
+    margin-top: 10px;
 }
