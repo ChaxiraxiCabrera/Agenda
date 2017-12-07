@@ -1,0 +1,22 @@
+<div class="form-group">
+        <label>Nombre *</label>
+        <input ng-model="formComponent.contact.name" name="name" type="text" class="form-control" placeholder="Nombre ..." ng-required="true" />
+        <p ng-show="formComponent.contactForm.name.$touched && !formComponent.contactForm.name.$valid">
+            No te olvides de introducir un nombre.
+        </p>
+    </div>
+    <div class="form-group">
+        <label>URL Foto *</label>
+        <input ng-model="formComponent.contact.photo" name="photo" type="text" class="form-control" placeholder="URL Foto ..." ng-required="true" />
+        <p ng-show="formComponent.contactForm.photo.$touched && formComponent.contactForm.photo.$invalid">No te olvides de indicar una foto</p>
+    </div>
+    <div class="form-group">
+        <label>Correo *</label>
+        <input ng-model="formComponent.contact.email" name="email" type="email" class="form-control" placeholder="Correo ..." ng-required="true" />
+        <p ng-show="formComponent.contactForm.email.$touched && formComponent.contactForm.email.$invalid">Introduzca un email válido</p>
+    </div>
+    <div class="form-group">
+        <label>Telefono *</label>
+        <input ng-model="formComponent.contact.phone" name="phone" type="text" class="form-control" placeholder="Telefono ..." ng-required="true" ng-min="9" ng-pattern="/^[9|6|7][0-9]{8}$/" />
+        <p ng-show="formComponent.contactForm.phone.$touched && formComponent.contactForm.phone.$invalid">Introduzca un teléfono válido</p>
+    </div>

@@ -1,0 +1,51 @@
+<form name="comicForm" class="contact-form">
+    <h3><strong>{{comicsComponent.contact.name}}</strong></h3>
+
+    <div class="row list-comics">
+        <div ng-repeat="comic in comicsComponent.comicsFav track by comic.id">
+            <div class="col-lg-4">
+                <div class="row">
+                    <button class="btn btn-link" ng-click="comicsComponent.toggleComicFav(comic)"><img heigth="100" width="100" ng-src="{{comic.cover}}" alt="comic"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-4">
+            <select name="searchOption" id="searchOption" class="form-control" ng-model="comicsComponent.searchMode">
+                               <option value="start">Empieza por</option>
+                               <option value="character">Personaje</option>
+                           </select>
+        </div>
+        <div class="col-lg-5">
+            <input type="text" class="form-control" placeholder="Buscar..." ng-model="comic" ng-change="comicsComponent.searchComics(comic, 0)" ng-show="comicsComponent.searchMode != 'character'">
+            <input type="text" class="form-control" placeholder="Personaje..." ng-model="comicsComponent.comic" ng-show="comicsComponent.searchMode == 'character'">
+        </div>
+        <div class="col-lg-2">
+            <button ng-disabled="comicsComponent.searchMode != 'character'" class="btn btn-success" ng-click="comicsComponent.searchComics(comic, 0)">Buscar</button>
+        </div>
+    </div>
+
+    <div class="row searched-gifs">
+        <div ng-repeat="comic in comicsComponent.comics track by comic.id">
+            <div class="col-lg-4">
+                <div class="row">
+                    <button class="btn btn-link" ng-click="comicsComponent.toggleComicFav(comic)"><img heigth="100" width="100" ng-src="{{comic.cover}}" alt="comic" ng-class="{selected : comicsComponent.checkFavComic(comic.id) == true}"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-2">
+            <button class="btn btn-default" ng-click="comicsComponent.searchComics(comic, 2)">&lt;</button>
+        </div>
+        <div class="col-lg-2 col-lg-offset-8">
+            <button class="btn btn-default" ng-click="comicsComponent.searchComics(comic, 1)">&gt;</button>
+        </div>
+    </div>
+
+
+</form>

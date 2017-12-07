@@ -1,0 +1,45 @@
+<form name="gifForm" class="contact-form">
+    <h3><strong>{{gifsComponent.contact.name}}</strong></h3>
+
+    <div class="row list-gifs">
+        <div ng-repeat="gif in gifsComponent.gifsPreFav track by gif.id">
+            <div class="col-lg-3">
+                <div class="row gif-container">
+                    <button class="btn btn-link" ng-click="gifsComponent.toggleGifFav(gif)"><img heigth="100" width="100" ng-src="{{gif.image}}" alt="gif"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-5">
+            <input type="text" class="form-control" placeholder="Buscar..." ng-model="gifsComponent.search">
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-default" ng-click="gifsComponent.changeFilter(1)" ng-class="{active : filterMode  == 'trending_datetime'}">Trending</button>
+            <button type="button" class="btn btn-default" ng-click="gifsComponent.changeFilter(0)" ng-class="{active : filterMode  == 'rating'}">Recents</button>
+        </div>
+        <button class="btn btn-success" ng-click="gifsComponent.searchGif(gifsComponent.search, 0)">Buscar</button>
+    </div>
+
+    <div class="row searched-gifs">
+        <div ng-repeat="gif in gifsComponent.gifs | orderBy: gifsComponent.filterMode track by gif.id">
+            <div class="col-lg-3">
+                <div class="row gif-container">
+                    <button class="btn btn-link" ng-click="gifsComponent.toggleGifFav(gif)"><img heigth="100" width="100" ng-src="{{gif.image}}" alt="gif" ng-class="{selected : gifsComponent.checkFav(gif.id) == true}"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-2">
+            <button class="btn btn-default" ng-click="gifsComponent.searchGif(gifsComponent.search, 2)">&lt;</button>
+        </div>
+        <div class="col-lg-2 col-lg-offset-8">
+            <button class="btn btn-default" ng-click="gifsComponent.searchGif(gifsComponent.search, 1)">&gt;</button>
+        </div>
+    </div>
+
+</form>

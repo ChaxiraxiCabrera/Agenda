@@ -19,144 +19,27 @@
             </div>
         </div>
         <div class="col-lg-6 col-lg-offset-2 contact-menu">
-           
+
             <div class="form-menu">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default" ng-click="changeMode(0)" ng-class="{active : mode == 0}">Formulario</button>
-                    <button type="button" class="btn btn-default" ng-click="changeMode(1)" ng-class="{active : mode == 1}">Gifs</button>
-                    <button type="button" class="btn btn-default" ng-click="changeMode(2)" ng-class="{active : mode == 2}">Otros</button>
+                    <button type="button" class="btn btn-default" ng-click="changeMode('form')" ng-class="{active : mode == 0}">Formulario</button>
+                    <button type="button" class="btn btn-default" ng-click="changeMode('gifs')" ng-class="{active : mode == 1}">Gifs</button>
+                    <button type="button" class="btn btn-default" ng-click="changeMode('comics')" ng-class="{active : mode == 2}">Otros</button>
                 </div>
             </div>
-            
-            <div class="content" ng-show="mode == 0">
+
+            <div class="content" ng-show="mode == 'form'">
                 <form name="contactForm" class="contact-form" novalidate>
-                    <div class="form-group">
-                        <label>Nombre *</label>
-                        <input ng-model="contact.name" name="name" type="text" class="form-control" placeholder="Nombre ..." ng-required="true" />
-                        <p ng-show="contactForm.name.$touched && !contactForm.name.$valid">
-                            No te olvides de introducir un nombre.
-                        </p>
-                    </div>
-                    <div class="form-group">
-                        <label>URL Foto *</label>
-                        <input ng-model="contact.photo" name="photo" type="text" class="form-control" placeholder="URL Foto ..." ng-required="true" />
-                        <p ng-show="contactForm.photo.$touched && contactForm.photo.$invalid">No te olvides de indicar una foto</p>
-                    </div>
-                    <div class="form-group">
-                        <label>Correo *</label>
-                        <input ng-model="contact.email" name="email" type="email" class="form-control" placeholder="Correo ..." ng-required="true" />
-                        <p ng-show="contactForm.email.$touched && contactForm.email.$invalid">Introduzca un email válido</p>
-                    </div>
-                    <div class="form-group">
-                        <label>Telefono *</label>
-                        <input ng-model="contact.phone" name="phone" type="text" class="form-control" placeholder="Telefono ..." ng-required="true" ng-min="9" ng-pattern="/^[9|6|7][0-9]{8}$/" />
-                        <p ng-show="contactForm.phone.$touched && contactForm.phone.$invalid">Introduzca un teléfono válido</p>
-                    </div>
-
+                    <form-component contact='contact' contactForm='contactForm'></form-component>
                 </form>
             </div>
 
-            <div class="content" ng-show="mode == 1">
-                <form name="gifForm" class="contact-form">
-                    <h3><strong>{{contact.name}}</strong></h3>
-
-                    <div class="row list-gifs">
-                        <div ng-repeat="gif in gifsPreFav track by gif.id">
-                            <div class="col-lg-3">
-                                <div class="row gif-container">
-                                    <button class="btn btn-link" ng-click="toggleGifFav(gif)"><img heigth="100" width="100" ng-src="{{gif.image}}" alt="gif"></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-lg-5">
-                            <input type="text" class="form-control" placeholder="Buscar..." ng-model="search">
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default" ng-click="changeFilter(1)" ng-class="{active : filterMode  == 'trending_datetime'}">Trending</button>
-                            <button type="button" class="btn btn-default" ng-click="changeFilter(0)" ng-class="{active : filterMode  == 'rating'}">Recents</button>
-                        </div>
-                        <button class="btn btn-success" ng-click="searchGif(search, 0)">Buscar</button>
-                    </div>
-
-                    <div class="row searched-gifs">
-                        <div ng-repeat="gif in gifs | orderBy: filterMode track by gif.id">
-                            <div class="col-lg-3">
-                                <div class="row gif-container">
-                                    <button class="btn btn-link" ng-click="toggleGifFav(gif)"><img heigth="100" width="100" ng-src="{{gif.image}}" alt="gif" ng-class="{selected : checkFav(gif.id) == true}"></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-2">
-                            <button class="btn btn-default" ng-click="searchGif(search, 2)">&lt;</button>
-                        </div>
-                        <div class="col-lg-2 col-lg-offset-8">
-                            <button class="btn btn-default" ng-click="searchGif(search, 1)">&gt;</button>
-                        </div>
-                    </div>
-
-                </form>
+            <div class="content" ng-show="mode == 'gifs'">
+                <gifs-component contact='contact'></gifs-component>
             </div>
 
-            <div class="content" ng-show="mode == 2">
-                <form name="comicForm" class="contact-form">
-                    <h3><strong>{{contact.name}}</strong></h3>
-
-                    <div class="row list-comics">
-                        <div ng-repeat="comic in comicsFav track by comic.id">
-                            <div class="col-lg-4">
-                                <div class="row">
-                                    <button class="btn btn-link" ng-click="toggleComicFav(comic)"><img heigth="100" width="100" ng-src="{{comic.cover}}" alt="comic"></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-                       <div class="col-lg-4">
-                           <select name="searchOption" id="searchOption" class="form-control" ng-model="searchMode">
-                               <option value="0">Empieza por</option>
-                               <option value="1">Personaje</option>
-                           </select>
-                       </div>
-                        <div class="col-lg-5">
-                            <input type="text" class="form-control" placeholder="Buscar..." ng-model="comic" ng-change="searchComics(comic, 0)" ng-show="searchMode != 1">
-                            <input type="text" class="form-control" placeholder="Personaje..." ng-model="comic" ng-show="searchMode == 1">
-                        </div>
-                        <div class="col-lg-2">
-                            <button ng-disabled="searchMode != 1" class="btn btn-success" ng-click="searchComics(comic, 0)">Buscar</button>
-                        </div>
-                    </div>
-                    
-                    <div class="row searched-gifs">
-                        <div ng-repeat="comic in comics track by comic.id">
-                            <div class="col-lg-4">
-                                <div class="row">
-                                    <button class="btn btn-link" ng-click="toggleComicFav(comic)"><img heigth="100" width="100" ng-src="{{comic.cover}}" alt="comic" ng-class="{selected : checkFavComic(comic.id) == true}"></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-2">
-                            <button class="btn btn-default" ng-click="searchComics(comic, 2)">&lt;</button>
-                        </div>
-                        <div class="col-lg-2 col-lg-offset-8">
-                            <button class="btn btn-default" ng-click="searchComics(comic, 1)">&gt;</button>
-                        </div>
-                    </div>
-
-
-                </form>
-
+            <div class="content" ng-show="mode == 'comics'">
+                <comics-component contact='contact'></comics-component>
             </div>
 
             <div class="buttons">
