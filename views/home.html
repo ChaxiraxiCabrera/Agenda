@@ -101,7 +101,6 @@
                         </div>
                     </div>
 
-
                 </form>
             </div>
 
@@ -125,7 +124,7 @@
                             <input type="text" class="form-control" placeholder="Buscar..." ng-model="comic" ng-change="searchComics(comic, 0)">
                         </div>
                     </div>
-
+                    
                     <div class="row searched-gifs">
                         <div ng-repeat="comic in comics">
                             <div class="col-lg-4">
@@ -149,7 +148,6 @@
                 </form>
 
             </div>
-
 
             <div class="buttons">
                 <button class="btn btn-success" ng-click="addContact()" ng-show="modify == 0" ng-disabled="!checkContact()">Guardar</button>

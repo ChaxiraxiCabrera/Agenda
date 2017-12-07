@@ -86,5 +86,6 @@
                 .then(displayDataCharacters)
                 .catch(displayError);
         }
+        
     }
 })();
