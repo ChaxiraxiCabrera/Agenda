@@ -40,9 +40,11 @@
         }
 
         function saveContact(contact) {
+            contact.id = randId();
             var contacts = getAll();
             contacts.push(contact);
             localStorage.setItem('contacts', JSON.stringify(contacts));
+            return contact.id;
         }
         
         function updateContact(contact){
@@ -77,6 +79,10 @@
             if(contact.hasOwnProperty('comics'))
                 return contact.comics;
             return [];
+        }
+        
+        function randId() {
+            return Math.random().toString(36).substr(2, 20);
         }
         
     }

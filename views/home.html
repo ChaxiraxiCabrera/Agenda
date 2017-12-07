@@ -11,7 +11,7 @@
                             <p class="text-right">
                                 <a href="#!/contact/{{contact.id}}" class="btn btn-info">Ver</a>
                                 <button class="btn btn-warning" ng-click="modifyContact(contact)">Editar</button>
-                                <button class="btn btn-danger" ng-click="removeContact()">Eliminar</button>
+                                <button class="btn btn-danger" ng-click="removeContact(contact.id)">Eliminar</button>
                             </p>
                         </div>
                     </div>
@@ -61,10 +61,10 @@
                     <h3><strong>{{contact.name}}</strong></h3>
 
                     <div class="row list-gifs">
-                        <div ng-repeat="gif in gifsPreFav">
+                        <div ng-repeat="gif in gifsPreFav track by gif.id">
                             <div class="col-lg-3">
                                 <div class="row gif-container">
-                                    <button class="btn btn-link" ng-click="removeFavGif(gif.id)"><img heigth="100" width="100" ng-src="{{gif.images.preview_gif.url}}" alt="gif"></button>
+                                    <button class="btn btn-link" ng-click="toggleGifFav(gif)"><img heigth="100" width="100" ng-src="{{gif.image}}" alt="gif"></button>
                                 </div>
                             </div>
                         </div>
@@ -83,10 +83,10 @@
                     </div>
 
                     <div class="row searched-gifs">
-                        <div ng-repeat="gif in gifs | orderBy: filterMode">
+                        <div ng-repeat="gif in gifs | orderBy: filterMode track by gif.id">
                             <div class="col-lg-3">
                                 <div class="row gif-container">
-                                    <button class="btn btn-link" ng-click="setFavGif(gif)"><img heigth="100" width="100" ng-src="{{gif.images.preview_gif.url}}" alt="gif" ng-class="{selected : checkFav(gif.id) == true}"></button>
+                                    <button class="btn btn-link" ng-click="toggleGifFav(gif)"><img heigth="100" width="100" ng-src="{{gif.image}}" alt="gif" ng-class="{selected : checkFav(gif.id) == true}"></button>
                                 </div>
                             </div>
                         </div>
@@ -109,10 +109,10 @@
                     <h3><strong>{{contact.name}}</strong></h3>
 
                     <div class="row list-comics">
-                        <div ng-repeat="comic in comicsFav">
+                        <div ng-repeat="comic in comicsFav track by comic.id">
                             <div class="col-lg-4">
                                 <div class="row">
-                                    <button class="btn btn-link" ng-click="removeFavComic(comic.id)"><img heigth="100" width="100" ng-src="{{comic.cover}}" alt="comic"></button>
+                                    <button class="btn btn-link" ng-click="toggleComicFav(comic)"><img heigth="100" width="100" ng-src="{{comic.cover}}" alt="comic"></button>
                                 </div>
                             </div>
                         </div>
@@ -136,10 +136,10 @@
                     </div>
                     
                     <div class="row searched-gifs">
-                        <div ng-repeat="comic in comics">
+                        <div ng-repeat="comic in comics track by comic.id">
                             <div class="col-lg-4">
                                 <div class="row">
-                                    <button class="btn btn-link" ng-click="setComicFav(comic)"><img heigth="100" width="100" ng-src="{{comic.cover}}" alt="comic" ng-class="{selected : checkFavComic(comic.id) == true}"></button>
+                                    <button class="btn btn-link" ng-click="toggleComicFav(comic)"><img heigth="100" width="100" ng-src="{{comic.cover}}" alt="comic" ng-class="{selected : checkFavComic(comic.id) == true}"></button>
                                 </div>
                             </div>
                         </div>

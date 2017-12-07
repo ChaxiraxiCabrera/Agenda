@@ -21,24 +21,37 @@
 
         ////////////////
 
-        function get(search, offset) {
+        function get(search, direction) {
             var query = search;
             
-            if (offset == 1){
+            if (direction == 1){
                 preOffset += 8;
-            } else if (offset == 2){
+            } else if (direction == 2){
                 preOffset -= 8;
+            } else if (direction == 0){
+                preOffset = 0;
             }
             
             var completeUrl = url + 'q=' + query + key + '&limit=8&offset=' + preOffset;
             
             return $http.get(completeUrl)
-                .then(displayData)
+                .then(formatData)
                 .catch(displayError);
         }
         
-        function displayData(response){
-            return response.data.data;
+        function formatData(response){
+            var gifs = [];
+            var gif = {}
+            
+            for (let i = 0; i < response.data.data.length; i++){
+                gif.id = response.data.data[i].id;
+                gif.image = response.data.data[i].images.preview_gif.url;
+                gif.trending_datetime = response.data.data[i].trending_datetime;
+                gif.rating = response.data.data[i].rating;
+                gifs.push(angular.copy(gif));
+            }
+            
+            return gifs;
         }
         
         function displayError(e){

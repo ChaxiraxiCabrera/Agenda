@@ -32,16 +32,18 @@
                 prevOffset += 3;
             } else if (offset == 2) {
                 prevOffset -= 3;
+            } else if(offset == 0){
+                prevOffset = 0;
             }
 
             var completeUrl = baseUrl + key + '&titleStartsWith=' + search + limit + prevOffset;
 
             return $http.get(completeUrl)
-                .then(displayData)
+                .then(formatData)
                 .catch(displayError);
         }
         
-        function getComicByCharacter(search, offset){
+        function getCharacter(search, offset){
             
             if (offset == 1) {
                 prevOffset += 3;
@@ -53,12 +55,25 @@
            var completeUrl = baseUrl + key + '&characters=' + search + limit + prevOffset;
 
             return $http.get(completeUrl)
-                .then(displayData)
+                .then(formatData)
                 .catch(displayError);
         }
 
-        function displayData(response) {
-            var comics = generateImages(response.data.data.results);
+        function formatData(response) {
+            var comics = [];
+            var comic = {}
+            
+            for (let i = 0; i < response.data.data.results.length; i++){
+                comic.id = response.data.data.results[i].id;
+                comic.cover = response.data.data.results[i].thumbnail.path + '/portrait_medium.jpg';
+                comic.coverGrand = response.data.data.results[i].thumbnail.path + '/portrait_uncanny.jpg';
+                comic.title = response.data.data.results[i].title;
+                comic.description = response.data.data.results[i].description;
+                comic.pageCount = response.data.data.results[i].pageCount;
+                comic.date = response.data.data.results[i].dates[0].date;
+                comics.push(angular.copy(comic));
+            }
+            
             return comics;
         }
         
@@ -69,26 +84,12 @@
         function displayError(e) {
             console.error('Error', e);
         }
-
-        function getHas() {
-            var publicKey = '2e7e7d8939e644a10fa14629b4561357';
-            var privateKey = '34a67ff8017c00fe50a48e260f191167c4396901';
-            var md5 = '48982b0f037aae96a9021c4340a7946f';
-        }
-
-        function generateImages(comics) {
-            for (let i = 0; i < comics.length; i++) {
-                comics[i].cover = comics[i].thumbnail.path + '/portrait_medium.jpg';
-                comics[i].coverGrand = comics[i].thumbnail.path + '/portrait_uncanny.jpg';
-            }
-            return comics;
-        }
         
         function getComic(idComic){
             var completeUrl = baseUrl + '/' + idComic + key;
             
             return $http.get(completeUrl)
-                .then(displayData)
+                .then(formatData)
                 .catch(displayError);
         }
         
@@ -100,7 +101,7 @@
                 .catch(displayError);
         }
         
-        function getCharacter(name){
+        function getComicByCharacter(name){
            
             baseUrl = 'http://gateway.marvel.com/v1/public/characters';
             var completeUrl = baseUrl + key + '&name=' + name;

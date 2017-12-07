@@ -25,12 +25,12 @@
                     </tr>
                     <tr>
                         <th>Publicación</th>
-                        <td>{{comic.dates[0].date}}</td>
+                        <td>{{comic.date}}</td>
                     </tr>
                     <tr>
                         <th>Personajes</th>
                         <td>
-                            <div ng-repeat="character in characters">
+                            <div ng-repeat="character in characters track by character.id">
                                 <p>{{character.name}}</p>
                             </div>
                         </td>
