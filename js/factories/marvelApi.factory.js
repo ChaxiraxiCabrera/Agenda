@@ -19,14 +19,8 @@
 
         var baseUrl = 'http://gateway.marvel.com/v1/public/comics';
         var key = '?ts=1&apikey=2e7e7d8939e644a10fa14629b4561357&hash=48982b0f037aae96a9021c4340a7946f';
-
         var limit = '&limit=3&offset=';
-
         var prevOffset = 0;
-        
-        var charId = 0;
-        
-         var completeUrl = '';
 
         return exports;
 
@@ -75,7 +69,6 @@
         function displayError(e) {
             console.error('Error', e);
         }
-
 
         function getHas() {
             var publicKey = '2e7e7d8939e644a10fa14629b4561357';

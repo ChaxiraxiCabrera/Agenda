@@ -58,13 +58,13 @@
 
             <div class="content" ng-show="mode == 1">
                 <form name="gifForm" class="contact-form">
-                    <p><strong>{{contact.name}}</strong></p>
+                    <h3><strong>{{contact.name}}</strong></h3>
 
-                    <div class="row">
+                    <div class="row list-gifs">
                         <div ng-repeat="gif in gifsPreFav">
                             <div class="col-lg-3">
                                 <div class="row gif-container">
-                                    <button class="btn btn-default" ng-click="removeFavGif(gif.id)"><img heigth="100" width="100" ng-src="{{gif.images.preview_gif.url}}" alt="gif"></button>
+                                    <button class="btn btn-link" ng-click="removeFavGif(gif.id)"><img heigth="100" width="100" ng-src="{{gif.images.preview_gif.url}}" alt="gif"></button>
                                 </div>
                             </div>
                         </div>
@@ -106,13 +106,13 @@
 
             <div class="content" ng-show="mode == 2">
                 <form name="comicForm" class="contact-form">
-                    <p><strong>{{contact.name}}</strong></p>
+                    <h3><strong>{{contact.name}}</strong></h3>
 
-                    <div class="row">
+                    <div class="row list-comics">
                         <div ng-repeat="comic in comicsFav">
-                            <div class="col-lg-3">
-                                <div class="row gif-container">
-                                    <button class="btn btn-default" ng-click="removeFavComic(comic.id)"><img heigth="100" width="100" ng-src="{{comic.cover}}" alt="comic"></button>
+                            <div class="col-lg-4">
+                                <div class="row">
+                                    <button class="btn btn-link" ng-click="removeFavComic(comic.id)"><img heigth="100" width="100" ng-src="{{comic.cover}}" alt="comic"></button>
                                 </div>
                             </div>
                         </div>
@@ -138,7 +138,7 @@
                     <div class="row searched-gifs">
                         <div ng-repeat="comic in comics">
                             <div class="col-lg-4">
-                                <div class="row gif-container">
+                                <div class="row">
                                     <button class="btn btn-link" ng-click="setComicFav(comic)"><img heigth="100" width="100" ng-src="{{comic.cover}}" alt="comic" ng-class="{selected : checkFavComic(comic.id) == true}"></button>
                                 </div>
                             </div>

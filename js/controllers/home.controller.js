@@ -180,7 +180,6 @@
             }
         }
         
-        
         function cleanForm() {
             $scope.contact = {};
             $scope.search = '';
@@ -188,7 +187,6 @@
             $scope.contactForm.$setUntouched();
             $scope.contactForm.$setPristine();
         }
-        
         
         function checkFav(id){
             for ( let i = 0; i < $scope.gifsPreFav.length; i++){
@@ -207,7 +205,6 @@
             }
             return false;
         }
-        
         
         function getCharacterId(id){
             console.log(id);

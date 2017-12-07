@@ -12,7 +12,7 @@
 
 .searched-gifs {
     padding-top: 30px;
-    padding-bottom: 5px;
+    padding-bottom: 20px;
 }
 
 .contact-form .ng-invalid.ng-touched{
@@ -27,9 +27,19 @@
   margin-left: 5px;
 }
 
-.list-contacts{
+.list-contacts, .list-gifs, .list-comics, .list-fav-comics, .list-fav-gifs{
   max-height: 450px;
   overflow: scroll;
+}
+
+.gif-container {
+    height: 100px;
+    padding-bottom: 30px;
+}
+
+.list-gifs, .list-comics {
+    max-height: 200px;
+    margin-bottom: 20px;
 }
 
 .selected {
