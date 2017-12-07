@@ -19,6 +19,8 @@
         $scope.comics = [];
         $scope.comicsFav = [];
         $scope.filterMode = '';
+        $scope.searchMode = 0;
+        $scope.offset = 0;
         
         
         $scope.addContact = addContact;
@@ -127,7 +129,12 @@
         }
         
         function searchComics(search, offset){
-            MarvelFactory.get(search, offset).then(displayComics);
+            $scope.offset = offset;
+            if ($scope.searchMode == 0){
+                MarvelFactory.get(search, offset).then(displayComics);
+            }else{
+                MarvelFactory.getCharacter(search).then(getCharacterId);
+            }
         }
         
         function displayComics(comics){
@@ -199,6 +206,12 @@
                 }
             }
             return false;
+        }
+        
+        
+        function getCharacterId(id){
+            console.log(id);
+            MarvelFactory.getComicByCharacter(id, $scope.offset).then(displayComics);
         }
         
     }

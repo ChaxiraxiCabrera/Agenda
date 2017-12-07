@@ -120,8 +120,18 @@
 
 
                     <div class="row">
+                       <div class="col-lg-4">
+                           <select name="searchOption" id="searchOption" class="form-control" ng-model="searchMode">
+                               <option value="0">Empieza por</option>
+                               <option value="1">Personaje</option>
+                           </select>
+                       </div>
                         <div class="col-lg-5">
-                            <input type="text" class="form-control" placeholder="Buscar..." ng-model="comic" ng-change="searchComics(comic, 0)">
+                            <input type="text" class="form-control" placeholder="Buscar..." ng-model="comic" ng-change="searchComics(comic, 0)" ng-show="searchMode != 1">
+                            <input type="text" class="form-control" placeholder="Personaje..." ng-model="comic" ng-show="searchMode == 1">
+                        </div>
+                        <div class="col-lg-2">
+                            <button ng-disabled="searchMode != 1" class="btn btn-success" ng-click="searchComics(comic, 0)">Buscar</button>
                         </div>
                     </div>
                     

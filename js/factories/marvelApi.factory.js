@@ -11,17 +11,22 @@
         var exports = {
             get: get,
             getComic: getComic,
-            getCharacters: getCharacters
+            getCharacters: getCharacters,
+            getCharacter: getCharacter,
+            getComicByCharacter: getComicByCharacter
         };
 
 
         var baseUrl = 'http://gateway.marvel.com/v1/public/comics';
         var key = '?ts=1&apikey=2e7e7d8939e644a10fa14629b4561357&hash=48982b0f037aae96a9021c4340a7946f';
-        var contUrl = '&titleStartsWith=';
 
         var limit = '&limit=3&offset=';
 
         var prevOffset = 0;
+        
+        var charId = 0;
+        
+         var completeUrl = '';
 
         return exports;
 
@@ -35,7 +40,23 @@
                 prevOffset -= 3;
             }
 
-            var completeUrl = baseUrl + key + contUrl + search + limit + prevOffset;
+            var completeUrl = baseUrl + key + '&titleStartsWith=' + search + limit + prevOffset;
+
+            return $http.get(completeUrl)
+                .then(displayData)
+                .catch(displayError);
+        }
+        
+        function getComicByCharacter(search, offset){
+            
+            if (offset == 1) {
+                prevOffset += 3;
+            } else if (offset == 2) {
+                prevOffset -= 3;
+            }
+            
+            baseUrl = 'http://gateway.marvel.com/v1/public/comics';
+           var completeUrl = baseUrl + key + '&characters=' + search + limit + prevOffset;
 
             return $http.get(completeUrl)
                 .then(displayData)
@@ -47,7 +68,7 @@
             return comics;
         }
         
-          function displayDataCharacters(response) {
+        function displayDataCharacters(response) {
             return response.data.data.results;
         }
 
@@ -61,7 +82,6 @@
             var privateKey = '34a67ff8017c00fe50a48e260f191167c4396901';
             var md5 = '48982b0f037aae96a9021c4340a7946f';
         }
-
 
         function generateImages(comics) {
             for (let i = 0; i < comics.length; i++) {
@@ -87,5 +107,20 @@
                 .catch(displayError);
         }
         
+        function getCharacter(name){
+           
+            baseUrl = 'http://gateway.marvel.com/v1/public/characters';
+            var completeUrl = baseUrl + key + '&name=' + name;
+            
+            return $http.get(completeUrl)
+                .then(getCharacterId)
+                .catch(displayError);
+        }
+        
+        function getCharacterId(response){
+            return response.data.data.results[0].id;
+        }
+        
+       
     }
 })();
