@@ -51,6 +51,8 @@
                 prevOffset -= 3;
             }
             
+            console.log(search);
+            
             baseUrl = 'http://gateway.marvel.com/v1/public/comics';
            var completeUrl = baseUrl + key + '&characters=' + search + limit + prevOffset;
 
@@ -103,6 +105,8 @@
         
         function getComicByCharacter(name){
            
+            console.log(name);
+            
             baseUrl = 'http://gateway.marvel.com/v1/public/characters';
             var completeUrl = baseUrl + key + '&name=' + name;
             

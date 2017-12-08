@@ -73,7 +73,6 @@ function controller(MarvelFactory, ContactLSFactory) {
 
 
     function getCharacterId(id) {
-        console.log(id);
         MarvelFactory.getCharacter(id, comicsComponent.direction).then(displayComics);
     }
 
