@@ -4,7 +4,7 @@ angular.module('Agenda')
         controller: controller,
         controllerAs: 'comicsComponent',
         bindings: {
-            contact: '='
+            contact: '=',
         }
     })
 
@@ -27,6 +27,7 @@ function controller(MarvelFactory, ContactLSFactory) {
 
     this.$onInit = function () {
         comicsComponent.comicsFav = ContactLSFactory.getComics(comicsComponent.contact.id);
+        console.log(comicsComponent.comicsFav);
     }
 
     function searchComics(search, direction) {
