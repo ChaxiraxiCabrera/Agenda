@@ -49,6 +49,8 @@
                 prevOffset += 3;
             } else if (offset == 2) {
                 prevOffset -= 3;
+            } else if (offset == 0){
+                prevOffset = 0;
             }
             
             console.log(search);
