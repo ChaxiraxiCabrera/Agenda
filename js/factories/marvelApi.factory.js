@@ -13,7 +13,8 @@
             getComic: getComic,
             getCharacters: getCharacters,
             getCharacter: getCharacter,
-            getComicByCharacter: getComicByCharacter
+            getComicByCharacter: getComicByCharacter,
+            getComicByCharId: getComicByCharId
         };
 
 
@@ -32,7 +33,7 @@
                 prevOffset += 3;
             } else if (offset == 2) {
                 prevOffset -= 3;
-            } else if(offset == 0){
+            } else if (offset == 0) {
                 prevOffset = 0;
             }
 
@@ -42,21 +43,11 @@
                 .then(formatData)
                 .catch(displayError);
         }
-        
-        function getCharacter(search, offset){
-            
-            if (offset == 1) {
-                prevOffset += 3;
-            } else if (offset == 2) {
-                prevOffset -= 3;
-            } else if (offset == 0){
-                prevOffset = 0;
-            }
-            
-            console.log(search);
-            
+
+        function getComicByCharacter(search, offset) {
+
             baseUrl = 'http://gateway.marvel.com/v1/public/comics';
-           var completeUrl = baseUrl + key + '&characters=' + search + limit + prevOffset;
+            var completeUrl = baseUrl + key + '&characters=' + search + limit + prevOffset;
 
             return $http.get(completeUrl)
                 .then(formatData)
@@ -66,8 +57,8 @@
         function formatData(response) {
             var comics = [];
             var comic = {}
-            
-            for (let i = 0; i < response.data.data.results.length; i++){
+
+            for (let i = 0; i < response.data.data.results.length; i++) {
                 comic.id = response.data.data.results[i].id;
                 comic.cover = response.data.data.results[i].thumbnail.path + '/portrait_medium.jpg';
                 comic.coverGrand = response.data.data.results[i].thumbnail.path + '/portrait_uncanny.jpg';
@@ -77,10 +68,10 @@
                 comic.date = response.data.data.results[i].dates[0].date;
                 comics.push(angular.copy(comic));
             }
-            
+
             return comics;
         }
-        
+
         function displayDataCharacters(response) {
             return response.data.data.results;
         }
@@ -88,39 +79,52 @@
         function displayError(e) {
             console.error('Error', e);
         }
-        
-        function getComic(idComic){
+
+        function getComic(idComic) {
             var completeUrl = baseUrl + '/' + idComic + key;
-            
+
             return $http.get(completeUrl)
                 .then(formatData)
                 .catch(displayError);
         }
-        
-        function getCharacters(idComic){
+
+        function getCharacters(idComic) {
             var completeUrl = baseUrl + '/' + idComic + '/characters' + key;
-            
+
             return $http.get(completeUrl)
                 .then(displayDataCharacters)
                 .catch(displayError);
         }
-        
-        function getComicByCharacter(name){
-           
-            console.log(name);
-            
+
+        function getCharacter(name) {
+
             baseUrl = 'http://gateway.marvel.com/v1/public/characters';
             var completeUrl = baseUrl + key + '&name=' + name;
-            
+
             return $http.get(completeUrl)
                 .then(getCharacterId)
                 .catch(displayError);
         }
-        
-        function getCharacterId(response){
+
+        function getCharacterId(response) {
             return response.data.data.results[0].id;
         }
-        
-       
+
+        function getComicByCharId(search, direction) {
+            if (direction == 1) {
+                prevOffset += 3;
+            } else if (direction == 2) {
+                prevOffset -= 3;
+            } else if (direction == 0) {
+                prevOffset = 0;
+            }
+           return getCharacter(search).then(getComics);
+        }
+
+        function getComics(id) {
+           return getComicByCharacter(id, prevOffset);
+        }
+
+
     }
 })();

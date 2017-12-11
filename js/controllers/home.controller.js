@@ -81,6 +81,7 @@
             $scope.contact = {};
             $scope.search = '';
             $scope.comic = '';
+            $scope.mode = 'form';
             $scope.contactForm.$setUntouched();
             $scope.contactForm.$setPristine();
         }

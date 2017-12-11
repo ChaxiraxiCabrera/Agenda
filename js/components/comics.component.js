@@ -27,7 +27,6 @@ function controller(MarvelFactory, ContactLSFactory) {
 
     this.$onInit = function () {
         comicsComponent.comicsFav = ContactLSFactory.getComics(comicsComponent.contact.id);
-        console.log(comicsComponent.comicsFav);
     }
 
     function searchComics(search, direction) {
@@ -35,7 +34,7 @@ function controller(MarvelFactory, ContactLSFactory) {
         if (comicsComponent.searchMode == 'start') {
             MarvelFactory.get(search, direction).then(displayComics);
         } else {
-            MarvelFactory.getComicByCharacter(search).then(getCharacterId);
+            MarvelFactory.getComicByCharId(search, direction).then(displayComics);
         }
     }
 
@@ -71,11 +70,5 @@ function controller(MarvelFactory, ContactLSFactory) {
         }
         return false;
     }
-
-
-    function getCharacterId(id) {
-        MarvelFactory.getCharacter(id, comicsComponent.direction).then(displayComics);
-    }
-
 
 }
