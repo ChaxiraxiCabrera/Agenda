@@ -16,6 +16,7 @@ function controller(GifsFactory, ContactLSFactory) {
 
     gifsComponent.filterMode = '';
     gifsComponent.gifs = [];
+    gifsComponent.options = {limit: 8, direction: 0};
 
     gifsComponent.searchGif = searchGif;
     gifsComponent.toggleGifFav = toggleGifFav;
@@ -30,7 +31,8 @@ function controller(GifsFactory, ContactLSFactory) {
     }
 
     function searchGif(search, direction) {
-        GifsFactory.get(search, direction).then(displayGifs);
+        configOptions(direction);
+        GifsFactory.get(search, gifsComponent.options).then(displayGifs);
     }
 
     function displayGifs(gifs) {
@@ -74,5 +76,16 @@ function controller(GifsFactory, ContactLSFactory) {
             gifsComponent.filterMode = 'trending_datetime';
         }
     }
+    
+    function configOptions(direction) {
+        if (direction == 1) {
+            gifsComponent.options.direction += 8;
+        } else if (direction == 2) {
+            gifsComponent.options.direction -= 8;
+        } else if (direction == 0) {
+            gifsComponent.options.direction = 0;
+        }
+    }
+
 
 }

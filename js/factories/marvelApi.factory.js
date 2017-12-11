@@ -21,33 +21,25 @@
         var baseUrl = 'http://gateway.marvel.com/v1/public/comics';
         var key = '?ts=1&apikey=2e7e7d8939e644a10fa14629b4561357&hash=48982b0f037aae96a9021c4340a7946f';
         var limit = '&limit=3&offset=';
-        var prevOffset = 0;
+        var searchOptions = {};
 
         return exports;
 
         ////////////////
 
-        function get(search, offset) {
+        function get(search, options) {
 
-            if (offset == 1) {
-                prevOffset += 3;
-            } else if (offset == 2) {
-                prevOffset -= 3;
-            } else if (offset == 0) {
-                prevOffset = 0;
-            }
-
-            var completeUrl = baseUrl + key + '&titleStartsWith=' + search + limit + prevOffset;
+            var completeUrl = baseUrl + key + '&titleStartsWith=' + search + limit + options;
 
             return $http.get(completeUrl)
                 .then(formatData)
                 .catch(displayError);
         }
 
-        function getComicByCharacter(search, offset) {
+        function getComicByCharacter(search, options) {
 
             baseUrl = 'http://gateway.marvel.com/v1/public/comics';
-            var completeUrl = baseUrl + key + '&characters=' + search + limit + prevOffset;
+            var completeUrl = baseUrl + key + '&characters=' + search + limit + options.direction;
 
             return $http.get(completeUrl)
                 .then(formatData)
@@ -110,19 +102,15 @@
             return response.data.data.results[0].id;
         }
 
-        function getComicByCharId(search, direction) {
-            if (direction == 1) {
-                prevOffset += 3;
-            } else if (direction == 2) {
-                prevOffset -= 3;
-            } else if (direction == 0) {
-                prevOffset = 0;
-            }
-           return getCharacter(search).then(getComics);
+        function getComicByCharId(search, options) {
+            searchOptions = options;
+            console.log(options);
+            return getCharacter(search).then(getComics);
         }
 
         function getComics(id) {
-           return getComicByCharacter(id, prevOffset);
+           console.log(searchOptions);
+           return getComicByCharacter(id, searchOptions);
         }
 
 

@@ -21,18 +21,10 @@
 
         ////////////////
 
-        function get(search, direction) {
-            var query = search;
+        function get(search, options) {
             
-            if (direction == 1){
-                preOffset += 8;
-            } else if (direction == 2){
-                preOffset -= 8;
-            } else if (direction == 0){
-                preOffset = 0;
-            }
             
-            var completeUrl = url + 'q=' + query + key + '&limit=8&offset=' + preOffset;
+            var completeUrl = url + 'q=' + search + key + '&limit=8&offset=' + options.direction;
             
             return $http.get(completeUrl)
                 .then(formatData)

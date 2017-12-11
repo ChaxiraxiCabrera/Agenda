@@ -16,7 +16,11 @@ function controller(MarvelFactory, ContactLSFactory) {
 
     comicsComponent.comics = [];
     comicsComponent.searchMode = 'start';
-    comicsComponent.direction = 0;
+    //comicsComponent.direction = 0;
+    comicsComponent.options = {
+        limit: 3,
+        direction: 0
+    };
 
     comicsComponent.searchComics = searchComics;
     comicsComponent.toggleComicFav = toggleComicFav;
@@ -30,11 +34,12 @@ function controller(MarvelFactory, ContactLSFactory) {
     }
 
     function searchComics(search, direction) {
-        comicsComponent.direction = direction;
+        configOptions(direction);
         if (comicsComponent.searchMode == 'start') {
-            MarvelFactory.get(search, direction).then(displayComics);
+            //MarvelFactory.get(search, direction).then(displayComics);
+            MarvelFactory.get(search, comicsComponent.options).then(displayComics);
         } else {
-            MarvelFactory.getComicByCharId(search, direction).then(displayComics);
+            MarvelFactory.getComicByCharId(search, comicsComponent.options).then(displayComics);
         }
     }
 
@@ -69,6 +74,16 @@ function controller(MarvelFactory, ContactLSFactory) {
             }
         }
         return false;
+    }
+
+    function configOptions(direction) {
+        if (direction == 1) {
+            comicsComponent.options.direction += 3;
+        } else if (direction == 2) {
+            comicsComponent.options.direction -= 3;
+        } else if (direction == 0) {
+            comicsComponent.options.direction = 0;
+        }
     }
 
 }

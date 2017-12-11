@@ -16,6 +16,7 @@
         $scope.mode = 'form';
         $scope.gifsPreFav = [];
         $scope.comicsFav = [];
+        $scope.contactForm = {};
 
         $scope.addContact = addContact;
         $scope.modifyContact = modifyContact;
